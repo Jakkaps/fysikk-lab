@@ -48,11 +48,11 @@ d2y = cs(x,2)   #d2y=tabell med 1401 verdier for y''(x)
 
 #Eksempel: Plotter banens form y(x)
 baneform = plt.figure('y(x)',figsize=(12,6))
-""" plt.plot(x,y,xfast,yfast,'*') """
+# plt.plot(x,y,xfast,yfast,'*')
 plt.title('Banens form')
 plt.xlabel('$x$ (m)',fontsize=20)
 plt.ylabel('$y(x)$ (m)',fontsize=20)
-plt.ylim(0.0,0.40)
+#plt.ylim(0.0,0.40)
 plt.grid()
 """ plt.show() """
 #Figurer kan lagres i det formatet du foretrekker:
@@ -60,53 +60,38 @@ plt.grid()
 #baneform.savefig("baneform.png", bbox_inches='tight')
 #baneform.savefig("baneform.eps", bbox_inches='tight')
 
-fart = np.sqrt((10*g*(y[0] - y))/7)
-fart_figur = plt.figure('y(x)',figsize=(12,6))
-""" plt.plot(x, fart,'*') """
-plt.title('Fart')
-plt.xlabel('$x$ (m)',fontsize=20)
-plt.ylabel('$y(x)$ (m)',fontsize=20)
-plt.grid()
-""" plt.show() """
-
 helningsvinkel = np.arctan(dy)
 helningsvinkel_figur = plt.figure('y(x)',figsize=(12,6))
-""" plt.plot(x, helningsvinkel,'*') """
+#plt.plot(x, helningsvinkel,'-')
 plt.title('Helningsvinkel')
 plt.xlabel('$x$ (m)',fontsize=20)
-plt.ylabel('$y(x)$ (m)',fontsize=20)
+plt.ylabel('$beta$ (rad)',fontsize=20)
 plt.grid()
-""" plt.show() """
+#plt.show()
 
 krumningsbanen = d2y / (1 + dy**2)**(3/2)
 krumningsbane_figur = plt.figure('y(x)',figsize=(12,6))
 """ plt.plot(x, krumningsbanen,'*') """
 plt.title('Krumningsbane')
 plt.xlabel('$x$ (m)',fontsize=20)
-plt.ylabel('$y(x)$ (m)',fontsize=20)
+plt.ylabel('$K(x)$ (1/m)',fontsize=20)
 plt.grid()
 """ plt.show() """
+
+fart = np.sqrt((10*g*(y[0] - y))/7)
+fart_figur = plt.figure('y(x)',figsize=(12,6))
+#plt.plot(x, fart,'-')
+plt.title('Fart')
+plt.xlabel('$x$ (m)',fontsize=20)
+plt.ylabel('$v$ (m/s)',fontsize=20)
+#plt.grid()
 
 normalkraft = np.cos(helningsvinkel) + ((fart**2)*krumningsbanen)/ g
 normalkraft_figur = plt.figure('y(x)',figsize=(12,6))
-plt.plot(x, normalkraft,'-')
+"""plt.plot(x, normalkraft,'-')"""
 plt.title('Normalkraft')
 plt.xlabel('$x$ (m)',fontsize=20)
-plt.ylabel('$y(x)$ (m)',fontsize=20)
-plt.grid()
-""" plt.show() """
-
-
-tid = np.array((1,))
-for i in range(1, len(x)):
-	dt = (2*x[i]) / (fart[i-1]*np.cos(helningsvinkel[i-1]) + fart[i]*np.cos(helningsvinkel[i]))
-	tid = np.append(tid, dt + tid[-1])
-
-tid_figur = plt.figure('y(x)',figsize=(12,6))
-""" plt.plot(tid, x,'-') """
-plt.title('Tid')
-plt.xlabel('$x$ (m)',fontsize=20)
-plt.ylabel('$y(x)$ (m)',fontsize=20)
+plt.ylabel('$N/mg$',fontsize=20)
 plt.grid()
 """ plt.show() """
 
@@ -114,17 +99,30 @@ m = 0.031
 friksjon = np.absolute((m*g*2*np.sin(helningsvinkel)/7))
 friksjon_normal = friksjon / (normalkraft*m*g)
 friksjon_figur = plt.figure('y(x)',figsize=(12,6))
-plt.plot(x, friksjon_normal,'-')
+"""plt.plot(x, friksjon_normal,'-')"""
 plt.title('Friksjonskraft')
 plt.xlabel('$x$ (m)',fontsize=20)
-plt.ylabel('$y(x)$ (m)',fontsize=20)
+plt.ylabel('$|f/N|$ (m)',fontsize=20)
 plt.grid()
-plt.show()
+# plt.show()
 
-print(fart)
-""" plt.plot(fart, tid,'-') """
-plt.title('Fart')
-plt.xlabel('$x$ (m)',fontsize=20)
-plt.ylabel('$y(x)$ (m)',fontsize=20)
+tid = np.array((0,))
+for i in range(1, len(x)):
+	dt = 0.002 / (fart[i-1]*np.cos(helningsvinkel[i-1]) + fart[i]*np.cos(helningsvinkel[i]))
+	tid = np.append(tid, dt + tid[-1])
+
+tid_figur = plt.figure('y(x)',figsize=(12,6))
+#plt.plot(tid, x,'-')
+plt.title('Tid')
+plt.xlabel('$t$ (s)',fontsize=20)
+plt.ylabel('$x$ (m)',fontsize=20)
 plt.grid()
-""" plt.show() """
+#plt.show()
+
+tid_figur = plt.figure('y(x)',figsize=(12,6))
+#plt.plot(tid, fart,'-')
+plt.title('Tid')
+plt.xlabel('$t$ (s)',fontsize=20)
+plt.ylabel('$v$ (m/s)',fontsize=20)
+plt.grid()
+#plt.show()
