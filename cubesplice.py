@@ -48,13 +48,14 @@ d2y = cs(x,2)   #d2y=tabell med 1401 verdier for y''(x)
 
 #Eksempel: Plotter banens form y(x)
 baneform = plt.figure('y(x)',figsize=(12,6))
-# plt.plot(x,y,xfast,yfast,'*')
+#plt.plot(x,y,xfast,yfast,'*')
 plt.title('Banens form')
 plt.xlabel('$x$ (m)',fontsize=20)
 plt.ylabel('$y(x)$ (m)',fontsize=20)
 #plt.ylim(0.0,0.40)
 plt.grid()
-""" plt.show() """
+#plt.show()
+
 #Figurer kan lagres i det formatet du foretrekker:
 #baneform.savefig("baneform.pdf", bbox_inches='tight')
 #baneform.savefig("baneform.png", bbox_inches='tight')
@@ -65,7 +66,7 @@ helningsvinkel_figur = plt.figure('y(x)',figsize=(12,6))
 #plt.plot(x, helningsvinkel,'-')
 plt.title('Helningsvinkel')
 plt.xlabel('$x$ (m)',fontsize=20)
-plt.ylabel('$beta$ (rad)',fontsize=20)
+plt.ylabel('$β$ (rad)',fontsize=20)
 plt.grid()
 #plt.show()
 
